@@ -12,7 +12,7 @@ export namespace Components {
         /**
           * Adds multiple select functionality
          */
-        "multiple": any;
+        "multiple": boolean;
         /**
           * List of items to displayed in the dropdown
          */
@@ -57,7 +57,7 @@ declare namespace LocalJSX {
         /**
           * Adds multiple select functionality
          */
-        "multiple"?: any;
+        "multiple"?: boolean;
         /**
           * Handler for clicking an item
          */

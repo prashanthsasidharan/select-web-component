@@ -17,10 +17,10 @@ export class MultiSelect {
   @State() highlightedValue: string = '';
   
   /** Adds multiple select functionality */
-  @Prop() multiple;
+  @Prop() multiple = false;
   
   /** Selected items value */
-  @Prop() value;
+  @Prop({ mutable: true}) value;
 
   /** Handler for clicking an item */
   @Event() change: EventEmitter;
@@ -28,28 +28,28 @@ export class MultiSelect {
   /** List of items to displayed in the dropdown */
   @Prop() options: SelectOptions = [];
 
-  /** This is the value state used interally, created this to prevent mutating value prop and thereby casuing unnecessary rerenders */
-  selectValue: any;
-
   @Watch('value')
-  updateSelectValue() {
-    this.selectValue = this.multiple ? JSON.parse(this.value): this.value;
+  updatevalue() {
+    console.log('updatevalue', this.value);
+    if (this.multiple && typeof this.value === 'string') {
+      this.value = JSON.parse(this.value);
+    }
   }
 
   @Watch('value')
   highlightSelectedItems() {
     if (this.multiple) {
-      this.selectValue.forEach((v) => this.addItemClass(v, "selected"));
+      this.value.forEach((v) => this.addItemClass(v, "selected"));
     } else {
-      this.addItemClass(this.selectValue, "selected");
+      this.addItemClass(this.value, "selected");
     }
   }
 
   componentWillLoad() {
     // parsing stingified array for multiple select mode in this hook to update the value even before 
     // the component is rendered to prevent errors
-    this.updateSelectValue();
-    this.highlightedValue = this.multiple ? this.selectValue[0] : this.selectValue;
+    this.updatevalue();
+    this.highlightedValue = this.multiple ? this.value[0] : this.value;
   }
 
   componentDidLoad() {
@@ -71,43 +71,46 @@ export class MultiSelect {
   }
 
   addItemClass(value, className) {
-    this.element.querySelector(`[value=${value}]`)?.shadowRoot.querySelector('li').classList.add(className);
+    console.log('add', value, className);
+    value && this.element.querySelector(`[value=${value}]`)?.shadowRoot.querySelector('li').classList.add(className);
   }
 
   removeItemClass(value, className) {
-    this.element.querySelector(`[value=${value}]`)?.shadowRoot.querySelector('li').classList.remove(className);
+    console.log('remove', value, className);
+    value && this.element.querySelector(`[value=${value}]`)?.shadowRoot.querySelector('li').classList.remove(className);
   }
 
   selectOption(option){
     if (this.multiple) {
-      if (this.selectValue.includes(option)) {
-        this.change.emit(this.selectValue.filter(o => o !== option))
+      if (this.value.includes(option)) {
+        this.removeItemClass(option, 'selected');
+        this.value = this.value.filter(o => o !== option);
       } else {
-        this.change.emit([...this.selectValue, option])
+        this.value = [...this.value, option];
       }
     } else {
       this.removeItemClass(this.value, "selected");
-      if (option !== this.selectValue) {
-        this.change.emit(option)
+      if (option !== this.value) {
+        this.value = option;
       }
     }
+    this.change.emit(this.value);
   }
 
   clearOptions() {
     if(this.multiple) {
-      let selectedElements = this.element.querySelectorAll('.selected');
-      for( let ele=0; ele<selectedElements.length; ele++) {
-        selectedElements[ele].classList.remove('selected');
+      let items = this.element.children;
+      for( let ele=0; ele<items.length; ele++) {
+        this.removeItemClass(items[ele].getAttribute('value'), 'selected');
       }
-
-      this.change.emit([]);
+      this.value = [];
     } else {
-      this.change.emit(undefined)
+      this.value = '';
     }
+    this.change.emit(this.value);
   }
 
   addAccessiblity = (e: KeyboardEvent) => {
-    console.log(this.isOpen);
       switch (e.code) {
         case "Enter":
         case "Space":
@@ -120,7 +123,6 @@ export class MultiSelect {
             this.isOpen = true;
             break
           }
-          
           let options =  this.element.querySelectorAll('multi-select-option');
           let highlightedElement = this.element.querySelector(`[value=${this.highlightedValue}]`);
           let highlightedIndex = 0; 
@@ -153,7 +155,7 @@ export class MultiSelect {
       <div class="container">
         <span class="value">
           {this.multiple
-            ? this.selectValue.map((v, i)=> (
+            ? this.value.map((v, i)=> (
                 <button
                   key={i}
                   onClick={() => {
@@ -166,7 +168,7 @@ export class MultiSelect {
                   <span class="remove-btn">&times;</span>
                 </button>
               ))
-            : this.selectValue}
+            : this.value}
         </span>
         <button
           onClick={(e) => {
