@@ -1,10 +1,9 @@
 import { Component, h, Host, State, Prop, Watch, Listen, Event, EventEmitter, Element  } from "@stencil/core";
 import { HTMLStencilElement } from "@stencil/core/internal";
-import { SelectOption, SelectOptions } from './multi-select.interface';
 
 @Component({
-  tag : 'multi-select',
-  styleUrl: 'multi-select.css',
+  tag : 'select-web',
+  styleUrl: 'select.css',
   shadow: true
 })
 
@@ -26,11 +25,10 @@ export class MultiSelect {
   @Event() change: EventEmitter;
 
   /** List of items to displayed in the dropdown */
-  @Prop() options: SelectOptions = [];
+  @Prop() options = [];
 
   @Watch('value')
   updatevalue() {
-    console.log('updatevalue', this.value);
     if (this.multiple && typeof this.value === 'string') {
       this.value = JSON.parse(this.value);
     }
@@ -71,12 +69,10 @@ export class MultiSelect {
   }
 
   addItemClass(value, className) {
-    console.log('add', value, className);
     value && this.element.querySelector(`[value=${value}]`)?.shadowRoot.querySelector('li').classList.add(className);
   }
 
   removeItemClass(value, className) {
-    console.log('remove', value, className);
     value && this.element.querySelector(`[value=${value}]`)?.shadowRoot.querySelector('li').classList.remove(className);
   }
 
@@ -111,37 +107,37 @@ export class MultiSelect {
   }
 
   addAccessiblity = (e: KeyboardEvent) => {
-      switch (e.code) {
-        case "Enter":
-        case "Space":
-          if (this.isOpen) this.selectOption(this.highlightedValue)
-          this.isOpen = !this.isOpen;
-          break
-        case "ArrowUp":
-        case "ArrowDown": {
-          if (!this.isOpen) {
-            this.isOpen = true;
-            break
-          }
-          let options =  this.element.querySelectorAll('multi-select-option');
-          let highlightedElement = this.element.querySelector(`[value=${this.highlightedValue}]`);
-          let highlightedIndex = 0; 
-          options.forEach((op, index) => {
-            if (highlightedElement == op) {
-              highlightedIndex = index
-            }
-          });
-
-          const newValue =  highlightedIndex + (e.code === "ArrowDown" ? 1 : -1)
-          if (newValue >= 0 && newValue < options.length) {
-            this.highlightMouseEnteredItem({detail: options[newValue].getAttribute('value')});
-          }
+    switch (e.code) {
+      case "Enter":
+      case "Space":
+        if (this.isOpen) this.selectOption(this.highlightedValue)
+        this.isOpen = !this.isOpen;
+        break
+      case "ArrowUp":
+      case "ArrowDown": {
+        if (!this.isOpen) {
+          this.isOpen = true;
           break
         }
-        case "Escape":
-          this.isOpen = false;
-          break
+        let options =  this.element.querySelectorAll('select-web-option');
+        let highlightedElement = this.element.querySelector(`[value=${this.highlightedValue}]`);
+        let highlightedIndex = 0; 
+        options.forEach((op, index) => {
+          if (highlightedElement == op) {
+            highlightedIndex = index
+          }
+        });
+
+        const newValue =  highlightedIndex + (e.code === "ArrowDown" ? 1 : -1)
+        if (newValue >= 0 && newValue < options.length) {
+          this.highlightMouseEnteredItem({detail: options[newValue].getAttribute('value')});
+        }
+        break
       }
+      case "Escape":
+        this.isOpen = false;
+        break
+    }
   }
 
   render() {
@@ -190,3 +186,4 @@ export class MultiSelect {
     )
   }
 }
+

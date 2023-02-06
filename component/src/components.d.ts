@@ -5,10 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { SelectOptions } from "./components/multi-select/multi-select.interface";
-export { SelectOptions } from "./components/multi-select/multi-select.interface";
 export namespace Components {
-    interface MultiSelect {
+    interface SelectWeb {
         /**
           * Adds multiple select functionality
          */
@@ -16,44 +14,44 @@ export namespace Components {
         /**
           * List of items to displayed in the dropdown
          */
-        "options": SelectOptions;
+        "options": any[];
         /**
           * Selected items value
          */
         "value": any;
     }
-    interface MultiSelectOption {
+    interface SelectWebOption {
         "value": string;
     }
 }
-export interface MultiSelectCustomEvent<T> extends CustomEvent<T> {
+export interface SelectWebCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLMultiSelectElement;
+    target: HTMLSelectWebElement;
 }
-export interface MultiSelectOptionCustomEvent<T> extends CustomEvent<T> {
+export interface SelectWebOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLMultiSelectOptionElement;
+    target: HTMLSelectWebOptionElement;
 }
 declare global {
-    interface HTMLMultiSelectElement extends Components.MultiSelect, HTMLStencilElement {
+    interface HTMLSelectWebElement extends Components.SelectWeb, HTMLStencilElement {
     }
-    var HTMLMultiSelectElement: {
-        prototype: HTMLMultiSelectElement;
-        new (): HTMLMultiSelectElement;
+    var HTMLSelectWebElement: {
+        prototype: HTMLSelectWebElement;
+        new (): HTMLSelectWebElement;
     };
-    interface HTMLMultiSelectOptionElement extends Components.MultiSelectOption, HTMLStencilElement {
+    interface HTMLSelectWebOptionElement extends Components.SelectWebOption, HTMLStencilElement {
     }
-    var HTMLMultiSelectOptionElement: {
-        prototype: HTMLMultiSelectOptionElement;
-        new (): HTMLMultiSelectOptionElement;
+    var HTMLSelectWebOptionElement: {
+        prototype: HTMLSelectWebOptionElement;
+        new (): HTMLSelectWebOptionElement;
     };
     interface HTMLElementTagNameMap {
-        "multi-select": HTMLMultiSelectElement;
-        "multi-select-option": HTMLMultiSelectOptionElement;
+        "select-web": HTMLSelectWebElement;
+        "select-web-option": HTMLSelectWebOptionElement;
     }
 }
 declare namespace LocalJSX {
-    interface MultiSelect {
+    interface SelectWeb {
         /**
           * Adds multiple select functionality
          */
@@ -61,32 +59,32 @@ declare namespace LocalJSX {
         /**
           * Handler for clicking an item
          */
-        "onChange"?: (event: MultiSelectCustomEvent<any>) => void;
+        "onChange"?: (event: SelectWebCustomEvent<any>) => void;
         /**
           * List of items to displayed in the dropdown
          */
-        "options"?: SelectOptions;
+        "options"?: any[];
         /**
           * Selected items value
          */
         "value"?: any;
     }
-    interface MultiSelectOption {
-        "onMultiSelectOptMouseEnter"?: (event: MultiSelectOptionCustomEvent<any>) => void;
-        "onMultiSelectOptionClick"?: (event: MultiSelectOptionCustomEvent<any>) => void;
+    interface SelectWebOption {
+        "onMultiSelectOptMouseEnter"?: (event: SelectWebOptionCustomEvent<any>) => void;
+        "onMultiSelectOptionClick"?: (event: SelectWebOptionCustomEvent<any>) => void;
         "value"?: string;
     }
     interface IntrinsicElements {
-        "multi-select": MultiSelect;
-        "multi-select-option": MultiSelectOption;
+        "select-web": SelectWeb;
+        "select-web-option": SelectWebOption;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "multi-select": LocalJSX.MultiSelect & JSXBase.HTMLAttributes<HTMLMultiSelectElement>;
-            "multi-select-option": LocalJSX.MultiSelectOption & JSXBase.HTMLAttributes<HTMLMultiSelectOptionElement>;
+            "select-web": LocalJSX.SelectWeb & JSXBase.HTMLAttributes<HTMLSelectWebElement>;
+            "select-web-option": LocalJSX.SelectWebOption & JSXBase.HTMLAttributes<HTMLSelectWebOptionElement>;
         }
     }
 }

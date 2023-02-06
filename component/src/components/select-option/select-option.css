@@ -1,0 +1,45 @@
+.option {
+  padding: .25em 1.2em;
+  cursor: pointer;
+  color: #1c223e
+}
+
+.option.selected {
+  background-color: #68C668;
+}
+
+.option.highlighted {
+  background-color: #90EE90;
+}
+
+.option.selected #tick-mark {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  float: right;
+}
+
+.option.selected #tick-mark::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 50%;
+  width: 3px;
+  background-color: white;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+.option.selected #tick-mark::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}

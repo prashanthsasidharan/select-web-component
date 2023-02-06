@@ -1,10 +1,9 @@
 import { Component, h, Host, Element } from "@stencil/core";
-import { SelectOption, SelectOptions } from './multi-select-option.interface';
 import { Event, EventEmitter, HTMLStencilElement, Prop } from '@stencil/core/internal';
 
 @Component({
-  tag : 'multi-select-option',
-  styleUrl: 'multi-select-option.css',
+  tag : 'select-web-option',
+  styleUrl: 'select-option.css',
   shadow: true
 })
 
@@ -31,11 +30,9 @@ export class MultiSelectOption {
         onClick={this.handleItemSelect}
         onMouseEnter={this.handleItemMounseEnter}
         class="option"
-        // class={`option ${
-        //   this.isOptionSelected(option) ? "selected" : ""
-        // } ${index === this.highlightedIndex ? "highlighted" : ""}`}
       >
         <slot />
+        <div id="tick-mark"></div>
       </li>
     </Host>
     )
