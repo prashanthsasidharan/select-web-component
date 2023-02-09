@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No framework demo</title>
+</head>
+<style>
+  .container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+</style>
+<body>
+
+  <div class="container">
+  <select-web
+    id="single-select"
+    value="football"
+  >
+    <select-web-option value="football">Footbal</select-web-option>
+    <select-web-option value="cricket">Cricket</select-web-option>
+    <select-web-option value="duster">Duster</select-web-option>
+    <select-web-option value="basket">Basket</select-web-option>
+  </select-web>
+
+  <select-web 
+    multiple="true"
+    id="multi-select"
+  >
+    <select-web-option value="football">Footbal</select-web-option>
+    <select-web-option value="cricket">Cricket</select-web-option>
+    <select-web-option value="duster">Duster</select-web-option>
+    <select-web-option value="basket">Basket</select-web-option>
+  </select-web>
+ </div>
+  
+</body>
+<script type="module" src="http://localhost:3333/build/multi-select-web-component.esm.js"></script>
+
+<script defer>
+
+  let singleSelectElement = document.querySelector('#single-select');
+
+  singleSelectElement.addEventListener(('change'), (e) => {
+    singleSelectElement.value = e.target.value
+  })
+
+  let multiSelectValue = document.querySelector('#multi-select');
+  multiSelectValue.value=JSON.stringify(['football'])
+  multiSelectValue.addEventListener(('change'), (e) => {
+    multiSelectValue.value = JSON.stringify([...e.target.value]);
+  })
+</script>
+</html>

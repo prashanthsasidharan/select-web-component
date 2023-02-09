@@ -3,12 +3,39 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
-
-    <script type="module" src="/build/multi-select-web-component.esm.js"></script>
-    <script nomodule src="/build/multi-select-web-component.js"></script>
+    <title>Select Web Component</title>
+    <style scoped>
+      .container {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        padding: 3em 20%;
+        margin: auto;
+        text-align: center;
+        background-color: azure;
+      }
+      @media (width < 600px) {
+        .container {
+          padding: 3em 0%;
+        } 
+      }
+    </style>
   </head>
   <body>
-    <multi-select></multi-select>
+    <div class="container">
+      <h1>Compatible single and multi select web components that works with any framework or no framework. </h1>
+      <div>
+        <h2>React</h2>
+        <iframe src="http://localhost:3001/" height="200px" width="100%"></iframe>
+      </div>
+      <div>
+        <h2>Ember</h2>
+        <iframe src="http://localhost:3000/" height="200px" width="100%"></iframe>
+      </div>
+      <div>
+        <h2>No Framework</h2>
+        <iframe src="http://127.0.0.1:5500/plain-demo/index.html" height="200px" width="100%"></iframe>
+      </div>
+    </div>
   </body>
 </html>

@@ -132,6 +132,7 @@ export class MultiSelect {
         if (newValue >= 0 && newValue < options.length) {
           this.highlightMouseEnteredItem({detail: options[newValue].getAttribute('value')});
         }
+        e.preventDefault();
         break
       }
       case "Escape":
