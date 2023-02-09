@@ -1,7 +1,24 @@
 {{page-title "EmberDemo"}}
 
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between;">
+  <select-web
+  value={{selectedValues}}
+  onChange={{action 'singleSelectHandler'}}
+>
+  <select-web-option value="football">Footbal</select-web-option>
+  <select-web-option value="cricket">Cricket</select-web-option>
+  <select-web-option value="duster">Duster</select-web-option>
+  <select-web-option value="basket">Basket</select-web-option>
+</select-web>
 
-{{outlet}}
+<select-web
+  multiple={{true}}
+  value={{this.stringifiedMultiSelectValue}}
+  onChange={{action "multiSelectHandler"}}
+>
+  <select-web-option value="football">Footbal</select-web-option>
+  <select-web-option value="cricket">Cricket</select-web-option>
+  <select-web-option value="duster">Duster</select-web-option>
+  <select-web-option value="basket">Basket</select-web-option>
+</select-web>
+</div>
