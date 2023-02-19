@@ -7,7 +7,7 @@ Compatible select web component which works with any framework or no framework. 
 
 ## Demo
 
-Insert gif or link to demo
+Demo link - https://select-component.netlify.app/
 
 
 ## Features
