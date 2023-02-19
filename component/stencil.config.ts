@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'multi-select-web-component',
+  namespace: 'select-web-component',
   outputTargets: [
     {
       type: 'dist',

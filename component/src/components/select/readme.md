@@ -7,11 +7,18 @@
 
 ## Properties
 
-| Property | Attribute | Description     | Type     | Default     |
-| -------- | --------- | --------------- | -------- | ----------- |
-| `first`  | `first`   | The first name  | `string` | `undefined` |
-| `last`   | `last`    | The last name   | `string` | `undefined` |
-| `middle` | `middle`  | The middle name | `string` | `undefined` |
+| Property   | Attribute  | Description                                | Type      | Default     |
+| ---------- | ---------- | ------------------------------------------ | --------- | ----------- |
+| `multiple` | `multiple` | Adds multiple select functionality         | `boolean` | `false`     |
+| `options`  | --         | List of items to displayed in the dropdown | `any[]`   | `[]`        |
+| `value`    | `value`    | Selected items value                       | `any`     | `undefined` |
+
+
+## Events
+
+| Event    | Description                  | Type               |
+| -------- | ---------------------------- | ------------------ |
+| `change` | Handler for clicking an item | `CustomEvent<any>` |
 
 
 ----------------------------------------------
